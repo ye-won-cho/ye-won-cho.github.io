@@ -25,31 +25,38 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #ffffff;
-      --surface: #f8fafc;
-      --surface-hover: #f1f5f9;
-      --text: #0f172a;
-      --text-secondary: #475569;
-      --text-muted: #64748b;
-      --accent: #1d4ed8;
-      --accent-soft: #eff6ff;
-      --accent-border: #bfdbfe;
-      --border: #e2e8f0;
-      --shadow: 0 10px 28px -6px rgba(15, 23, 42, 0.12);
+      --bg: #fcfbf9;
+      --surface: #ffffff;
+      --surface-tint: #f6f5f2;
+      --text: #2f2f2f;
+      --text-secondary: #555555;
+      --text-muted: #828282;
+      /* Pastel Palette: Mint (#C9E4DE) & Lavender (#DBCDF0) */
+      --mint: #C9E4DE;
+      --mint-deep: #3d6b63;
+      --mint-border: #b3d6ce;
+      --lavender: #DBCDF0;
+      --lavender-deep: #5a4b75;
+      --lavender-border: #c8b6e6;
+      --border: #e8e6e1;
+      --shadow: 0 8px 24px -8px rgba(47, 47, 47, 0.08);
     }
 
     html.dark {
-      --bg: #0b1120;
-      --surface: #111827;
-      --surface-hover: #1e293b;
-      --text: #f1f5f9;
-      --text-secondary: #cbd5e1;
-      --text-muted: #94a3b8;
-      --accent: #60a5fa;
-      --accent-soft: rgba(59, 130, 246, 0.14);
-      --accent-border: rgba(96, 165, 250, 0.3);
-      --border: #1e293b;
-      --shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.45);
+      --bg: #18181b;
+      --surface: #202024;
+      --surface-tint: #27272c;
+      --text: #e4e4e7;
+      --text-secondary: #b4b4bc;
+      --text-muted: #85858f;
+      --mint: rgba(201, 228, 222, 0.22);
+      --mint-deep: #b8ded6;
+      --mint-border: rgba(201, 228, 222, 0.35);
+      --lavender: rgba(219, 205, 240, 0.22);
+      --lavender-deep: #d4c3ed;
+      --lavender-border: rgba(219, 205, 240, 0.35);
+      --border: #2e2e34;
+      --shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.35);
     }
 
     * {
@@ -66,14 +73,14 @@
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: var(--bg);
       color: var(--text);
-      line-height: 1.68;
+      line-height: 1.7;
       font-size: 15.5px;
       -webkit-font-smoothing: antialiased;
       transition: background-color 0.2s ease, color 0.2s ease;
     }
 
     a {
-      color: var(--accent);
+      color: var(--mint-deep);
       text-decoration: none;
     }
 
@@ -86,14 +93,14 @@
       position: sticky;
       top: 0;
       z-index: 20;
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(252, 251, 249, 0.86);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
     }
 
     html.dark .navbar {
-      background: rgba(11, 17, 32, 0.85);
+      background: rgba(24, 24, 27, 0.86);
     }
 
     .nav-inner {
@@ -129,7 +136,7 @@
 
     .nav-links a:hover,
     .nav-links a.active {
-      color: var(--accent);
+      color: var(--mint-deep);
       text-decoration: none;
     }
 
@@ -148,8 +155,9 @@
     }
 
     .theme-btn:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+      border-color: var(--mint-border);
+      background: var(--mint);
+      color: var(--text);
     }
 
     /* Main Container */
@@ -159,7 +167,7 @@
       padding: 52px 24px 80px;
     }
 
-    /* Hero Section: Bio Left, Large Rectangular Photo Right */
+    /* Hero Section */
     .hero {
       display: grid;
       grid-template-columns: 1fr 200px;
@@ -169,17 +177,18 @@
     }
 
     .hero-name {
-      font-size: 34px;
+      font-size: 33px;
       font-weight: 700;
-      letter-spacing: -0.025em;
+      letter-spacing: -0.02em;
       line-height: 1.2;
       margin-bottom: 6px;
+      color: var(--text);
     }
 
     .hero-role {
-      font-size: 15.5px;
+      font-size: 15px;
       font-weight: 500;
-      color: var(--accent);
+      color: var(--mint-deep);
       margin-bottom: 18px;
     }
 
@@ -207,7 +216,7 @@
       padding: 8px 15px;
       font-size: 13.5px;
       font-weight: 600;
-      border-radius: 8px;
+      border-radius: 9px;
       background: var(--surface);
       color: var(--text);
       border: 1px solid var(--border);
@@ -217,20 +226,19 @@
     }
 
     .pill-btn:hover {
-      background: var(--accent-soft);
-      border-color: var(--accent-border);
-      color: var(--accent);
+      background: var(--lavender);
+      border-color: var(--lavender-border);
+      color: var(--text);
     }
 
     .pill-btn.primary {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #ffffff;
+      background: var(--mint);
+      border-color: var(--mint-border);
+      color: var(--text);
     }
 
     .pill-btn.primary:hover {
-      opacity: 0.92;
-      color: #ffffff;
+      filter: brightness(0.97);
     }
 
     .photo-card {
@@ -272,7 +280,7 @@
     }
 
     .section-title {
-      font-size: 19px;
+      font-size: 18.5px;
       font-weight: 700;
       letter-spacing: -0.015em;
       color: var(--text);
@@ -288,7 +296,7 @@
     .highlight-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .highlight-item {
@@ -296,7 +304,7 @@
       grid-template-columns: 92px 1fr;
       gap: 16px;
       align-items: baseline;
-      padding: 10px 14px;
+      padding: 11px 16px;
       border-radius: 10px;
       background: var(--surface);
       border: 1px solid var(--border);
@@ -306,7 +314,7 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 12.5px;
       font-weight: 500;
-      color: var(--accent);
+      color: var(--mint-deep);
       white-space: nowrap;
     }
 
@@ -324,20 +332,20 @@
     .pub-list {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 15px;
     }
 
     .pub-card {
       padding: 18px 20px;
       border-radius: 12px;
       border: 1px solid var(--border);
-      background: var(--bg);
+      background: var(--surface);
       transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
 
     .pub-card:hover {
-      border-color: var(--accent-border);
-      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+      border-color: var(--mint-border);
+      box-shadow: var(--shadow);
     }
 
     .pub-top {
@@ -353,23 +361,23 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 11.5px;
       font-weight: 500;
-      padding: 3px 9px;
+      padding: 3px 10px;
       border-radius: 6px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      border: 1px solid var(--accent-border);
+      background: var(--mint);
+      color: var(--text);
+      border: 1px solid var(--mint-border);
     }
 
     .paper-link {
       font-size: 13px;
       font-weight: 600;
-      color: var(--accent);
+      color: var(--mint-deep);
     }
 
     .pub-title {
       font-size: 16px;
       font-weight: 700;
-      line-height: 1.4;
+      line-height: 1.42;
       color: var(--text);
       margin-bottom: 6px;
     }
@@ -382,9 +390,10 @@
 
     .me {
       color: var(--text);
-      font-weight: 700;
+      font-weight: 600;
       text-decoration: underline;
-      text-decoration-color: var(--accent);
+      text-decoration-color: var(--mint-border);
+      text-decoration-thickness: 2px;
       text-underline-offset: 3px;
     }
 
@@ -396,15 +405,21 @@
       color: var(--text-secondary);
     }
 
-    .pub-badge-note {
-      margin-top: 6px;
-      font-size: 12.8px;
+    .pub-summary strong {
+      color: var(--text);
       font-weight: 600;
-      color: #b45309;
     }
 
-    html.dark .pub-badge-note {
-      color: #fbbf24;
+    .pub-badge-note {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 2px 9px;
+      border-radius: 6px;
+      background: var(--lavender);
+      border: 1px solid var(--lavender-border);
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text);
     }
 
     /* Experience & Education */
@@ -416,12 +431,12 @@
 
     .timeline-item {
       padding-left: 16px;
-      border-left: 2px solid var(--border);
+      border-left: 2px solid var(--mint-border);
       transition: border-color 0.15s ease;
     }
 
     .timeline-item:hover {
-      border-left-color: var(--accent);
+      border-left-color: var(--lavender-border);
     }
 
     .item-head {
@@ -448,7 +463,7 @@
     .item-sub {
       font-size: 13.8px;
       font-weight: 500;
-      color: var(--accent);
+      color: var(--mint-deep);
       margin-bottom: 6px;
     }
 
@@ -469,7 +484,7 @@
       grid-template-columns: 115px 1fr;
       gap: 16px;
       align-items: baseline;
-      padding: 8px 0;
+      padding: 9px 0;
       border-bottom: 1px solid var(--border);
     }
 
@@ -520,7 +535,7 @@
     .lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.85);
+      background: rgba(24, 24, 27, 0.82);
       display: none;
       align-items: center;
       justify-content: center;
@@ -537,7 +552,7 @@
       max-width: 380px;
       max-height: 85vh;
       border-radius: 12px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
     }
 
     @media (max-width: 700px) {
@@ -670,7 +685,7 @@
           </div>
           <h3 class="pub-title">Prompting Matters: Snippet-Aware Strategies for Biomedical QA with LLMs in BioASQ 13b</h3>
           <p class="pub-authors">Hajung Kim*, Hoonick Lee*, <span class="me">Yewon Cho</span>*, Jungwoo Park*, Jueon Park*, Soyon Park*, Yan Ting Chok*, Seungheun Baek*, Donghyeon Lee*, Jaewoo Kang</p>
-          <p class="pub-badge-note">1st Place, BioASQ 13b Challenge (Task B) · * Equal contribution</p>
+          <span class="pub-badge-note">1st Place, BioASQ 13b Challenge (Task B) · * Equal contribution</span>
         </article>
 
         <article class="pub-card">
