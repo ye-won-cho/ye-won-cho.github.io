@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yewon Cho | AI Researcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text-main: #111827;
+      --text-sub: #4b5563;
+      --text-muted: #6b7280;
+      --accent: #0f3d7a;
+      --accent-hover: #1d4ed8;
+      --border: #e5e7eb;
+      --tag-bg: #f3f4f6;
+      --badge-bg: #eff6ff;
+      --badge-text: #1e40af;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.65;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 56px 24px 72px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    /* Header / Bio */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 36px;
+      margin-bottom: 44px;
+    }
+
+    .bio {
+      flex: 1;
+    }
+
+    .name {
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+      color: var(--text-main);
+    }
+
+    .affiliation {
+      font-size: 15px;
+      color: var(--text-sub);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .bio p {
+      color: var(--text-sub);
+      margin-bottom: 12px;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text-main);
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-decoration: none !important;
+      transition: all 0.15s ease;
+    }
+
+    .link-btn:hover {
+      background: #e5e7eb;
+      border-color: #d1d5db;
+    }
+
+    .photo-wrapper {
+      flex-shrink: 0;
+      width: 156px;
+      height: 200px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #f9fafb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .photo-fallback {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      padding-bottom: 8px;
+      border-bottom: 1.5px solid var(--border);
+      margin-bottom: 18px;
+      color: var(--text-main);
+    }
+
+    /* News */
+    .news-list {
+      list-style: none;
+    }
+
+    .news-list li {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 8px;
+      font-size: 14.5px;
+      color: var(--text-sub);
+    }
+
+    .news-date {
+      font-weight: 600;
+      color: var(--text-main);
+      min-width: 56px;
+    }
+
+    /* Publications */
+    .pub-item {
+      margin-bottom: 20px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .pub-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .pub-title {
+      font-weight: 600;
+      font-size: 15.5px;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .pub-authors {
+      font-size: 14px;
+      color: var(--text-sub);
+      margin-bottom: 6px;
+    }
+
+    .pub-authors strong {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .pub-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+    }
+
+    .venue-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      border-radius: 4px;
+    }
+
+    .pub-tldr {
+      margin-top: 8px;
+      font-size: 13.8px;
+      color: var(--text-sub);
+      background: #fafafa;
+      padding: 8px 12px;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+    }
+
+    /* Experience & Education */
+    .entry {
+      margin-bottom: 18px;
+    }
+
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .entry-title {
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--text-main);
+    }
+
+    .entry-date {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .entry-sub {
+      font-size: 14px;
+      color: var(--text-sub);
+      font-style: italic;
+      margin-bottom: 4px;
+    }
+
+    .entry-desc {
+      font-size: 14.3px;
+      color: var(--text-sub);
+    }
+
+    /* Awards & Skills */
+    .award-list {
+      list-style: none;
+    }
+
+    .award-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-size: 14.5px;
+    }
+
+    .award-title {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .award-detail {
+      font-weight: 400;
+      color: var(--text-sub);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 165px 1fr;
+      gap: 10px 16px;
+      font-size: 14.3px;
+    }
+
+    .skill-cat {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .skill-items {
+      color: var(--text-sub);
+    }
+
+    footer {
+      margin-top: 56px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 680px) {
+      .header {
+        flex-direction: column-reverse;
+        gap: 20px;
+      }
+      .photo-wrapper {
+        width: 130px;
+        height: 166px;
+      }
+      .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+      .skill-cat {
+        margin-top: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header / Bio -->
+    <header class="header">
+      <div class="bio">
+        <h1 class="name">Yewon Cho</h1>
+        <div class="affiliation">
+          M.S. Student in Computer Science, Korea University (DMIS Lab)
+        </div>
+        <p>
+          I am a Master's student in Computer Science at <strong>Korea University</strong>, advised by Prof. Jaewoo Kang. Previously, I earned dual bachelor's degrees in Mathematics and Artificial Intelligence at Korea University.
+        </p>
+        <p>
+          My research focuses on <strong>LLM Reasoning</strong>, <strong>Latent-Space &amp; Sequence Architectures</strong>, <strong>Reinforcement Learning for LLMs</strong>, and <strong>Test-Time Compute Optimization</strong>. Beyond foundational reasoning methods, I have extensive hands-on experience building Korean LLM post-training and large-scale RAG pipelines, as well as training sim-to-real reinforcement learning policies for robotics.
+        </p>
+
+        <div class="links">
+          <a class="link-btn" href="mailto:yewon330@korea.ac.kr">Email</a>
+          <a class="link-btn" href="https://scholar.google.com/citations?user=uS_J4-8AAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
+          <a class="link-btn" href="https://github.com/YOUR_GITHUB_ID" target="_blank" rel="noopener">GitHub</a>
+          <a class="link-btn" href="cv.pdf" target="_blank" rel="noopener">CV (PDF)</a>
+        </div>
+      </div>
+
+      <div class="photo-wrapper">
+        <img src="photo.jpg" alt="Yewon Cho" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+        <span class="photo-fallback" style="display:none;">YC</span>
+      </div>
+    </header>
+
+    <!-- News -->
+    <section id="news">
+      <h2>Highlights</h2>
+      <ul class="news-list">
+        <li>
+          <span class="news-date">2026</span>
+          <span>First-author paper on test-time latent optimization (<strong>MidThink</strong>) accepted to <strong>EMNLP 2026 Main Conference</strong>.</span>
+        </li>
+        <li>
+          <span class="news-date">2026</span>
+          <span>Won the <strong>ATEC2026 Online Qualifier</strong> (USD 1,756 prize) and competed as a <strong>Hong Kong On-Site Finalist</strong> in sim-to-real robotics.</span>
+        </li>
+        <li>
+          <span class="news-date">2025</span>
+          <span>Won <strong>1st Place</strong> in the <strong>BioASQ 13b Challenge (Task B)</strong> and published findings at <strong>EMNLP 2025 Findings</strong>.</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Publications -->
+    <section id="publications">
+      <h2>Publications</h2>
+
+      <div class="pub-item">
+        <div class="pub-title">Adaptive Latent Block Insertion via Online Reward Optimization</div>
+        <div class="pub-authors">
+          <strong>Yewon Cho</strong>, Hyeongsoon Hwang, Yein Park, Hyeon Hwang, Jaewoo Kang
+        </div>
+        <div class="pub-meta">
+          <span class="venue-badge">EMNLP 2026 Main</span>
+          <a href="https://aclanthology.org/2026.emnlp-main.1833/" target="_blank" rel="noopener">[Paper]</a>
+        </div>
+        <div class="pub-tldr">
+          Proposed <strong>MidThink</strong>, an uncertainty-triggered test-time latent optimization framework trained via online RL; boosted AIME2024 Best@8 by up to 20 percentage points across four LLMs and five benchmarks without full retraining.
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Assessing LLM Reasoning Steps via Principal Knowledge Grounding</div>
+        <div class="pub-authors">
+          Hyeon Hwang, <strong>Yewon Cho</strong>, Chanwoong Yoon, Yein Park, Minju Song, Kyungjae Lee, Gangwoo Kim, Jaewoo Kang
+        </div>
+        <div class="pub-meta">
+          <span class="venue-badge">EMNLP 2025 Findings</span>
+          <a href="https://aclanthology.org/2025.findings-emnlp.1085/" target="_blank" rel="noopener">[Paper]</a>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Prompting Matters: Snippet-Aware Strategies for Biomedical QA with LLMs in BioASQ 13b</div>
+        <div class="pub-authors">
+          Hajung Kim<sup>&dagger;</sup>, Hoonick Lee<sup>&dagger;</sup>, <strong>Yewon Cho</strong><sup>&dagger;</sup>, Jungwoo Park<sup>&dagger;</sup>, Jueon Park<sup>&dagger;</sup>, Soyon Park<sup>&dagger;</sup>, Yan Ting Chok<sup>&dagger;</sup>, Seungheun Baek<sup>&dagger;</sup>, Donghyeon Lee<sup>&dagger;</sup>, Jaewoo Kang
+        </div>
+        <div class="pub-meta">
+          <span class="venue-badge">CLEF 2025 Working Notes</span>
+          <a href="https://ceur-ws.org/Vol-4038/paper_25.pdf" target="_blank" rel="noopener">[Paper]</a>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Exploring Model Personalities: Utilizing Self-Awareness to Analyze Behavioral Characteristics of Large Language Models</div>
+        <div class="pub-authors">
+          <strong>Yewon Cho</strong>, Jongmyung Jung, Hyeongsoon Hwang, Yein Park, Chanwoong Yoon, Jaewoo Kang
+        </div>
+        <div class="pub-meta">
+          <span class="venue-badge">Proceedings of KCC 2025</span>
+          <a href="https://drive.google.com/file/d/1m2k_Q-JZugqDKZ2cNohOTu2v4pK9xPTf/view?usp=drive_link" target="_blank" rel="noopener">[Paper]</a>
+        </div>
+      </div>
+
+      <div style="font-size: 12.5px; color: var(--text-muted); margin-top: 6px;">
+        <sup>&dagger;</sup> Equal contribution
+      </div>
+    </section>
+
+    <!-- Research Experience -->
+    <section id="experience">
+      <h2>Research Experience</h2>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Personalized Cultural Heritage Storytelling AI</span>
+          <span class="entry-date">Feb 2025 &ndash; Dec 2026</span>
+        </div>
+        <div class="entry-sub">Researcher; LLM Workstream Lead since Jan 2026 &middot; ETRI-funded R&amp;D Project</div>
+        <div class="entry-desc">
+          Built a Korean RAG pipeline over <strong>75,341 documents</strong> and synthesized <strong>74K Korean multi-turn dialogues</strong> for Gemma fine-tuning, leading end-to-end conversational LLM development and expert-in-the-loop evaluation.
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">ATEC2026 Real-World Extreme Challenge</span>
+          <span class="entry-date">Jun 2026 &ndash; Sep 2026</span>
+        </div>
+        <div class="entry-sub">Team Lead &middot; ATEC2026</div>
+        <div class="entry-desc">
+          Led reinforcement and imitation learning policy training for legged locomotion and manipulation, earning a <strong>USD 1,756 online prize</strong> and deploying sim-to-real policies on physical robots at the <strong>Hong Kong</strong> finals.
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">AI-based Fake News Detection System</span>
+          <span class="entry-date">May 2026 &ndash; Oct 2026</span>
+        </div>
+        <div class="entry-sub">Team Lead &middot; KETI gPBL Program</div>
+        <div class="entry-desc">
+          Built a two-stage claim verification pipeline combining Elasticsearch&ndash;SVM retrieval with RAG/LLM evidence reasoning, optimizing accuracy, latency, and inference cost (awarded KRW 2.5M gPBL grant).
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">3D Dance Motion Generation Improvement</span>
+          <span class="entry-date">Dec 2023 &ndash; Feb 2024</span>
+        </div>
+        <div class="entry-sub">Research Intern &middot; Korea Institute of Science and Technology (KIST)</div>
+        <div class="entry-desc">
+          Revised Bailando's Actor&ndash;Critic reward to preserve valid seated motions after analyzing its VQ-VAE and Motion GPT pipeline.
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education">
+      <h2>Education</h2>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Korea University, Seoul, South Korea</span>
+          <span class="entry-date">Mar 2025 &ndash; Aug 2027 (Expected)</span>
+        </div>
+        <div class="entry-desc">
+          M.S. in Computer Science (Advisor: Prof. Jaewoo Kang) &middot; GPA: <strong>4.44 / 4.5</strong>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Korea University, Seoul, South Korea</span>
+          <span class="entry-date">Mar 2020 &ndash; Feb 2025</span>
+        </div>
+        <div class="entry-desc">
+          B.S. in Mathematics (GPA: 3.78 / 4.5) &amp; B.Eng. in Interdisciplinary Major in Artificial Intelligence
+        </div>
+      </div>
+    </section>
+
+    <!-- Honors & Awards -->
+    <section id="awards">
+      <h2>Honors &amp; Awards</h2>
+      <ul class="award-list">
+        <li>
+          <span><span class="award-title">1st Place, BioASQ 13b Challenge (Task B)</span> <span class="award-detail">&mdash; Biomedical Question Answering</span></span>
+          <span class="entry-date">2025</span>
+        </li>
+        <li>
+          <span><span class="award-title">ATEC2026 Online Qualifier Prize &amp; Hong Kong On-Site Finalist</span> <span class="award-detail">&mdash; USD 1,756 Prize</span></span>
+          <span class="entry-date">2026</span>
+        </li>
+        <li>
+          <span><span class="award-title">National Science &amp; Engineering Graduate Scholarship (MSIT)</span> <span class="award-detail">&mdash; KRW 2.5M / semester</span></span>
+          <span class="entry-date">Mar 2025 &ndash; Present</span>
+        </li>
+        <li>
+          <span><span class="award-title">KETI gPBL Fellowship</span> <span class="award-detail">&mdash; Korea Electronics Technology Institute (KRW 2.5M)</span></span>
+          <span class="entry-date">2026</span>
+        </li>
+        <li>
+          <span><span class="award-title">National Scholarship for Science and Engineering Students</span> <span class="award-detail">&mdash; Seven-semester full-tuition merit scholarship</span></span>
+          <span class="entry-date">Mar 2020 &ndash; Feb 2025</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Technical Skills & Languages -->
+    <section id="skills">
+      <h2>Technical Skills &amp; Languages</h2>
+      <div class="skills-grid">
+        <div class="skill-cat">Programming &amp; Infra</div>
+        <div class="skill-items">Python, FastAPI, Docker, Linux, Git</div>
+
+        <div class="skill-cat">ML / LLM Frameworks</div>
+        <div class="skill-items">PyTorch (Multi-GPU Training), Hugging Face Transformers, vLLM, Isaac Sim, scikit-learn</div>
+
+        <div class="skill-cat">Retrieval &amp; Search</div>
+        <div class="skill-items">FAISS, Elasticsearch</div>
+
+        <div class="skill-cat">Research &amp; Methods</div>
+        <div class="skill-items">LLM Reasoning, Test-Time Latent Optimization, RL for Reasoning, Korean LLM Fine-Tuning, RAG, Synthetic Data, Evaluation</div>
+
+        <div class="skill-cat">Languages</div>
+        <div class="skill-items">Korean (Native), English (OPIc IH, Aug 2026)</div>
+      </div>
+    </section>
+
+    <footer>
+      <span>&copy; 2026 Yewon Cho</span>
+      <span>yewon330@korea.ac.kr</span>
+    </footer>
+  </div>
+</body>
+</html>
