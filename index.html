@@ -19,44 +19,43 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Yewon Cho">
   <meta property="og:description" content="M.S. Student in Computer Science at Korea University (DMIS Lab)">
+  <meta property="og:url" content="https://ye-won-cho.github.io">
   <meta property="og:image" content="https://ye-won-cho.github.io/photo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #fcfbf9;
+      --bg: #fcfafa;
       --surface: #ffffff;
-      --surface-tint: #f6f5f2;
       --text: #2f2f2f;
       --text-secondary: #555555;
       --text-muted: #828282;
-      /* Pastel Palette: Mint (#C9E4DE) & Lavender (#DBCDF0) */
-      --mint: #C9E4DE;
-      --mint-deep: #3d6b63;
-      --mint-border: #b3d6ce;
-      --lavender: #DBCDF0;
-      --lavender-deep: #5a4b75;
-      --lavender-border: #c8b6e6;
-      --border: #e8e6e1;
+      /* French Mauve Palette: #CBC4D6, #D1B4C6, #EFE1E1 */
+      --mauve-purple: #CBC4D6;
+      --mauve-purple-border: #b8afc7;
+      --mauve-pink: #D1B4C6;
+      --mauve-pink-border: #bfa0b3;
+      --mauve-mist: #EFE1E1;
+      --mauve-deep: #684d64;
+      --border: #ebe4e6;
       --shadow: 0 8px 24px -8px rgba(47, 47, 47, 0.08);
     }
 
     html.dark {
-      --bg: #18181b;
-      --surface: #202024;
-      --surface-tint: #27272c;
-      --text: #e4e4e7;
-      --text-secondary: #b4b4bc;
-      --text-muted: #85858f;
-      --mint: rgba(201, 228, 222, 0.22);
-      --mint-deep: #b8ded6;
-      --mint-border: rgba(201, 228, 222, 0.35);
-      --lavender: rgba(219, 205, 240, 0.22);
-      --lavender-deep: #d4c3ed;
-      --lavender-border: rgba(219, 205, 240, 0.35);
-      --border: #2e2e34;
-      --shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.35);
+      --bg: #18171c;
+      --surface: #211f26;
+      --text: #e6e3e8;
+      --text-secondary: #b8b2bd;
+      --text-muted: #8a8391;
+      --mauve-purple: rgba(203, 196, 214, 0.22);
+      --mauve-purple-border: rgba(203, 196, 214, 0.36);
+      --mauve-pink: rgba(209, 180, 198, 0.22);
+      --mauve-pink-border: rgba(209, 180, 198, 0.36);
+      --mauve-mist: rgba(239, 225, 225, 0.14);
+      --mauve-deep: #d5bfd1;
+      --border: #2f2c36;
+      --shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.38);
     }
 
     * {
@@ -80,7 +79,7 @@
     }
 
     a {
-      color: var(--mint-deep);
+      color: var(--mauve-deep);
       text-decoration: none;
     }
 
@@ -93,14 +92,14 @@
       position: sticky;
       top: 0;
       z-index: 20;
-      background: rgba(252, 251, 249, 0.86);
+      background: rgba(252, 250, 250, 0.86);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
     }
 
     html.dark .navbar {
-      background: rgba(24, 24, 27, 0.86);
+      background: rgba(24, 23, 28, 0.86);
     }
 
     .nav-inner {
@@ -136,7 +135,7 @@
 
     .nav-links a:hover,
     .nav-links a.active {
-      color: var(--mint-deep);
+      color: var(--mauve-deep);
       text-decoration: none;
     }
 
@@ -155,8 +154,8 @@
     }
 
     .theme-btn:hover {
-      border-color: var(--mint-border);
-      background: var(--mint);
+      border-color: var(--mauve-purple-border);
+      background: var(--mauve-mist);
       color: var(--text);
     }
 
@@ -170,9 +169,9 @@
     /* Hero Section */
     .hero {
       display: grid;
-      grid-template-columns: 1fr 200px;
+      grid-template-columns: 1fr 250px;
       gap: 40px;
-      align-items: start;
+      align-items: center;
       margin-bottom: 56px;
     }
 
@@ -188,8 +187,13 @@
     .hero-role {
       font-size: 15px;
       font-weight: 500;
-      color: var(--mint-deep);
+      color: var(--text-secondary);
       margin-bottom: 18px;
+    }
+
+    .hero-role a {
+      color: var(--mauve-deep);
+      font-weight: 600;
     }
 
     .hero-bio p {
@@ -226,24 +230,25 @@
     }
 
     .pill-btn:hover {
-      background: var(--lavender);
-      border-color: var(--lavender-border);
+      background: var(--mauve-mist);
+      border-color: var(--mauve-pink-border);
       color: var(--text);
     }
 
     .pill-btn.primary {
-      background: var(--mint);
-      border-color: var(--mint-border);
+      background: var(--mauve-purple);
+      border-color: var(--mauve-purple-border);
       color: var(--text);
     }
 
     .pill-btn.primary:hover {
-      filter: brightness(0.97);
+      background: var(--mauve-pink);
+      border-color: var(--mauve-pink-border);
     }
 
     .photo-card {
-      width: 200px;
-      height: 250px;
+      width: 250px;  /* 사진 가로 크기 (기존 200px) */
+      height: 315px; /* 사진 세로 크기 (기존 250px, 4:5 증명사진 비율 유지) */
       border-radius: 14px;
       overflow: hidden;
       border: 1px solid var(--border);
@@ -314,7 +319,7 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 12.5px;
       font-weight: 500;
-      color: var(--mint-deep);
+      color: var(--mauve-deep);
       white-space: nowrap;
     }
 
@@ -344,7 +349,7 @@
     }
 
     .pub-card:hover {
-      border-color: var(--mint-border);
+      border-color: var(--mauve-purple-border);
       box-shadow: var(--shadow);
     }
 
@@ -363,15 +368,15 @@
       font-weight: 500;
       padding: 3px 10px;
       border-radius: 6px;
-      background: var(--mint);
+      background: var(--mauve-purple);
       color: var(--text);
-      border: 1px solid var(--mint-border);
+      border: 1px solid var(--mauve-purple-border);
     }
 
     .paper-link {
       font-size: 13px;
       font-weight: 600;
-      color: var(--mint-deep);
+      color: var(--mauve-deep);
     }
 
     .pub-title {
@@ -392,7 +397,7 @@
       color: var(--text);
       font-weight: 600;
       text-decoration: underline;
-      text-decoration-color: var(--mint-border);
+      text-decoration-color: var(--mauve-pink-border);
       text-decoration-thickness: 2px;
       text-underline-offset: 3px;
     }
@@ -415,8 +420,8 @@
       margin-top: 8px;
       padding: 2px 9px;
       border-radius: 6px;
-      background: var(--lavender);
-      border: 1px solid var(--lavender-border);
+      background: var(--mauve-pink);
+      border: 1px solid var(--mauve-pink-border);
       font-size: 12.5px;
       font-weight: 500;
       color: var(--text);
@@ -431,12 +436,12 @@
 
     .timeline-item {
       padding-left: 16px;
-      border-left: 2px solid var(--mint-border);
+      border-left: 2px solid var(--mauve-purple-border);
       transition: border-color 0.15s ease;
     }
 
     .timeline-item:hover {
-      border-left-color: var(--lavender-border);
+      border-left-color: var(--mauve-pink-border);
     }
 
     .item-head {
@@ -463,7 +468,7 @@
     .item-sub {
       font-size: 13.8px;
       font-weight: 500;
-      color: var(--mint-deep);
+      color: var(--mauve-deep);
       margin-bottom: 6px;
     }
 
@@ -535,7 +540,7 @@
     .lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(24, 24, 27, 0.82);
+      background: rgba(24, 23, 28, 0.82);
       display: none;
       align-items: center;
       justify-content: center;
@@ -598,9 +603,9 @@
     <section id="about" class="hero">
       <div class="hero-bio">
         <h1 class="hero-name">Yewon Cho</h1>
-        <div class="hero-role">M.S. Student in Computer Science · Korea University (DMIS Lab)</div>
+        <div class="hero-role">M.S. Student in Computer Science · Korea University (<a href="https://dmis.korea.ac.kr/" target="_blank" rel="noopener">DMIS Lab</a>)</div>
         <p>
-          I am a Master's student in Computer Science at <strong>Korea University</strong>, advised by Prof. <a href="https://dmis.korea.ac.kr/jaewoo-kang-p-i" target="_blank" rel="noopener">Jaewoo Kang</a>. Prior to my graduate studies, I earned dual bachelor's degrees in Mathematics and Artificial Intelligence at Korea University.
+          I am a Master's student in Computer Science at <a href="https://dmis.korea.ac.kr/" target="_blank" rel="noopener">DMIS Lab</a>, <strong>Korea University</strong>, advised by Prof. <a href="https://dmis.korea.ac.kr/jaewoo-kang-p-i" target="_blank" rel="noopener">Jaewoo Kang</a>. Prior to my graduate studies, I earned dual bachelor's degrees in Mathematics and Artificial Intelligence at Korea University.
         </p>
         <p>
           My research centers on <strong>LLM Reasoning</strong>, <strong>Latent-Space &amp; Sequence Architectures</strong>, <strong>Reinforcement Learning for LLMs</strong>, and <strong>Test-Time Compute Optimization</strong>. Alongside foundational reasoning research, I have led large-scale Korean LLM post-training and RAG systems, as well as sim-to-real reinforcement learning for robotics.
