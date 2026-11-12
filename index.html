@@ -5,467 +5,873 @@
   <script>
     (function(){
       try {
-        var t = localStorage.getItem('theme');
-        var d = t ? t === 'dark' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        if (d) document.documentElement.classList.add('dark');
+        var saved = localStorage.getItem('yewon-theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (saved === 'dark' || (!saved && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
       } catch(e) {}
     })();
   </script>
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-  <title>Yewon Cho</title>
-  <meta name="description" content="Academic homepage of Yewon Cho">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Yewon Cho — AI Researcher</title>
+  <meta name="description" content="Academic homepage of Yewon Cho, M.S. Student in Computer Science at Korea University.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Yewon Cho">
-  <meta property="og:description" content="M.S. Student at Korea University">
+  <meta property="og:description" content="M.S. Student in Computer Science at Korea University (DMIS Lab)">
   <meta property="og:image" content="https://yewon.github.io/photo.jpg">
-  <meta property="og:url" content="https://yewon.github.io">
-  <meta name="twitter:card" content="summary">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Yewon Cho",
-    "url": "https://yewon.github.io",
-    "image": "https://yewon.github.io/photo.jpg",
-    "jobTitle": "M.S. Student",
-    "affiliation": {
-      "@type": "CollegeOrUniversity",
-      "name": "Korea University"
-    },
-    "email": "mailto:yewon330@korea.ac.kr",
-    "sameAs": [
-      "https://scholar.google.com/citations?user=uS_J4-8AAAAJ&hl=en",
-      "https://dmis.korea.ac.kr/"
-    ]
-  }
-  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{--ink:#1e3a50;--soft:#5a7a90;--teal:#3b8d9b;--line:#dce5e8}
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth;touch-action:pan-x pan-y}
-    body{margin:0;padding:57px 0 70px;color:var(--ink);font:300 17px/1.5 "Segoe UI",Arial,sans-serif;touch-action:pan-x pan-y}
-    a{color:var(--teal);text-decoration:none}
-    a:hover{text-decoration:underline}
-    header{position:fixed;z-index:2;top:0;width:100%;height:57px;background:#fff;border-bottom:1px solid var(--line);transition:background .25s ease,backdrop-filter .25s ease}
-    header.scrolled{background:rgba(255,255,255,.3);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
-    #progressBar{position:fixed;top:57px;left:0;height:1px;background:var(--teal);width:0%;z-index:3;transition:width .1s linear}
-    nav{height:56px;width:720px;max-width:calc(100% - 40px);margin:auto;display:flex;justify-content:flex-end;align-items:center;gap:28px;font-size:14px}
-    nav a{color:#66818f}
-    nav a.nav-active{color:var(--teal);font-weight:600}
-    .theme-toggle{cursor:pointer;font-size:14px;line-height:1;user-select:none;display:inline-flex;align-items:center;color:#66818f}
-    .container{width:720px;max-width:calc(100% - 40px);margin:auto}
-    .profile{display:grid;grid-template-columns:170px 1fr;gap:30px;align-items:center;padding:76px 0 43px}
-    .profile img{width:170px;height:170px;border-radius:50%;object-fit:cover;object-position:50% 20%;box-shadow:0 2px 12px #42606f22;border:1px solid #d6e2e5;cursor:zoom-in}
-    .profile h1{margin:0 0 5px;font-size:34px;line-height:1.2}
-    .subtitle{margin:0;color:#688398;font-size:15px;font-weight:400}
-    .socials{display:flex;gap:7px;margin-top:10px}
-    .socials a{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--line);border-radius:7px;color:#527389;font-size:13px;font-weight:700;position:relative;text-decoration:none}
-    .socials a:hover{border-color:var(--teal);color:var(--teal)}
-    .copied-tip{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e2b38;color:#fff;font-size:11px;font-weight:400;padding:4px 9px;border-radius:5px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .18s}
-    .copied-tip.show{opacity:1}
-    .bio p{margin:0 0 20px;font-size:16px}
-    .block{padding:36px 0 24px;border-top:0;scroll-margin-top:70px}
-    .block h2{margin:0 0 12px;color:var(--soft);font-size:17px;line-height:1.2;letter-spacing:.02em}
-    .rows{border-bottom:1px solid var(--line)}
-    .edu{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;min-height:84px;padding:14px 0;border-top:1px solid var(--line);font-size:16px;line-height:1.5}
-    .edu:first-child{border-top:0}
-    .edu a,.edu small{display:block}
-    .edu small{color:#8698a4;font-size:14px;margin-top:2px}
-    .edu time{color:#708894;font-size:14px;white-space:nowrap}
-    .news{display:grid;grid-template-columns:96px 1fr;gap:16px;padding:11px 0;border-top:1px solid var(--line);font-size:14.5px;line-height:1.5}
-    .news:first-child{border-top:0}
-    .news p{margin:0}
-    .news time{color:#708894;font-size:13px}
-    .pubs{list-style:none;counter-reset:p;margin:0;padding:0}
-    .pubs li{counter-increment:p;position:relative;padding:16px 20px;margin:0 -20px;border-bottom:1px solid var(--line);border-radius:10px;transition:box-shadow .18s ease,background .18s ease}
-    .venue{color:#4a5568;font-size:10px;font-weight:650;letter-spacing:.03em;text-transform:uppercase;background:#f1f3f5;border-radius:4px;padding:2.5px 7px;display:inline-block;margin-bottom:5px}
-    .pubs h3{margin:0 0 4px;font-size:16px;line-height:1.4;font-weight:600}
-    .pubs h3 a{color:var(--ink)}
-    .pubs li:hover h3 a{text-decoration:underline}
-    .authors{margin:0;color:#506b7c;font-size:14.5px;line-height:1.55}
-    .mine{font-weight:400;text-decoration:underline;text-underline-offset:2px}
-    .note{margin:5px 0 0;color:#8d6500;font-size:12.5px}
-    .tldr{margin:6px 0 0;color:#5a7a90;font-size:13.5px;line-height:1.45}
-    .award{display:grid;grid-template-columns:115px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15.5px;line-height:1.5}
-    .award:first-child{border-top:1px solid var(--line)}
-    .award p{margin:0}
-    .award span{color:#708894;font-size:13.5px}
-    .award small{display:block;color:#8698a4;font-size:13.5px}
-    .skill-row{display:grid;grid-template-columns:175px 1fr;gap:16px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px;line-height:1.5}
-    .skill-row:first-child{border-top:1px solid var(--line)}
-    .skill-label{font-weight:600;color:var(--ink)}
-    .lightbox{position:fixed;inset:0;background:rgba(20,32,42,.88);display:none;align-items:center;justify-content:center;z-index:50;padding:28px;cursor:zoom-out;touch-action:none}
-    .lightbox.show{display:flex}
-    .lightbox img{max-width:100%;max-height:100%;border-radius:6px;box-shadow:0 10px 34px rgba(0,0,0,.35);transition:transform .05s linear}
-    .lightbox.lightbox-photo img{max-width:420px;max-height:420px}
-    #toTop{position:fixed;right:20px;bottom:24px;width:38px;height:38px;border-radius:50%;background:#fff;border:1px solid var(--line);color:var(--teal);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px #42606f22;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s ease,transform .2s ease;z-index:10}
-    #toTop.show{opacity:1;pointer-events:auto;transform:none}
-    .fade-init{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
-    .fade-init.fade-in{opacity:1;transform:none}
-    .icon-svg{width:16px;height:16px;fill:currentColor}
-    footer{position:fixed;bottom:0;width:100%;padding:10px;background:#f2f5f6;border-top:1px solid var(--line);color:#607987;text-align:center;font-size:12px}
-    .content-update{font-size:17px}
-    @media(max-width:640px){
-      nav{gap:16px;font-size:12px}
-      header{background:rgba(255,255,255,.3);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
-      .profile{grid-template-columns:112px 1fr;gap:20px;padding:52px 0 34px}
-      .profile img{width:112px;height:112px}
-      .profile h1{font-size:28px}
-      .subtitle{font-size:14px}
-      .content-update,.bio p{font-size:15.5px}
-      .lightbox.lightbox-photo img{max-width:220px;max-height:220px}
-      .block{padding:31px 0 20px}
-      .block h2{font-size:15.5px}
-      .edu{grid-template-columns:1fr;gap:4px;font-size:14.5px}
-      .edu small,.edu time{font-size:12.5px}
-      .news{grid-template-columns:1fr;gap:3px;font-size:14.5px}
-      .news time{font-size:12px}
-      .pubs h3{font-size:14.5px}
-      .authors{font-size:13.5px}
-      .award,.skill-row{grid-template-columns:1fr;gap:3px;font-size:14.5px}
-      footer{position:static;margin-top:20px}
+    :root {
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --surface-hover: #f1f5f9;
+      --text: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --accent: #1d4ed8;
+      --accent-soft: #eff6ff;
+      --accent-border: #bfdbfe;
+      --border: #e2e8f0;
+      --shadow: 0 10px 28px -6px rgba(15, 23, 42, 0.12);
     }
-    html.dark{--ink:#e7edf2;--soft:#9fb3c2;--teal:#5bc4d4;--line:#2a343d}
-    html.dark body{background:#141a20}
-    html.dark header{background:#141a20 !important}
-    html.dark header.scrolled{background:rgba(20,26,32,.45) !important}
-    html.dark .subtitle,html.dark .authors,html.dark .edu small,html.dark .edu time,html.dark .news time,html.dark nav a,html.dark footer,html.dark .socials a,html.dark .award span,html.dark .award small,html.dark .tldr{color:#9fb3c2}
-    html.dark nav a.nav-active{color:var(--teal)}
-    html.dark .venue{background:#232e38;color:#aebdc9}
-    html.dark footer{background:#1a2028}
-    html.dark #toTop{background:#1a222a;border-color:#2a343d}
-    html.dark .profile img{border-color:#2a343d}
-    html.dark .note{color:#d4a017}
-    html.dark .block h2{color:#bccdd8}
-    html.dark #progressBar{background:var(--teal)}
-    @media(max-width:640px){html.dark header{background:rgba(20,26,32,.3) !important}.pubs li.in-focus h3 a{text-decoration:underline}}
+
+    html.dark {
+      --bg: #0b1120;
+      --surface: #111827;
+      --surface-hover: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --accent: #60a5fa;
+      --accent-soft: rgba(59, 130, 246, 0.14);
+      --accent-border: rgba(96, 165, 250, 0.3);
+      --border: #1e293b;
+      --shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.68;
+      font-size: 15.5px;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Top Navigation */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    html.dark .navbar {
+      background: rgba(11, 17, 32, 0.85);
+    }
+
+    .nav-inner {
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      text-decoration: none !important;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .theme-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .theme-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 52px 24px 80px;
+    }
+
+    /* Hero Section: Bio Left, Large Rectangular Photo Right */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 200px;
+      gap: 40px;
+      align-items: start;
+      margin-bottom: 56px;
+    }
+
+    .hero-name {
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .hero-role {
+      font-size: 15.5px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    .hero-bio p {
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+    }
+
+    .hero-bio strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 15px;
+      font-size: 13.5px;
+      font-weight: 600;
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      text-decoration: none !important;
+      transition: all 0.15s ease;
+    }
+
+    .pill-btn:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent-border);
+      color: var(--accent);
+    }
+
+    .pill-btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+
+    .pill-btn.primary:hover {
+      opacity: 0.92;
+      color: #ffffff;
+    }
+
+    .photo-card {
+      width: 200px;
+      height: 250px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      background: var(--surface);
+      flex-shrink: 0;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+      display: block;
+      cursor: zoom-in;
+      transition: transform 0.25s ease;
+    }
+
+    .photo-card img:hover {
+      transform: scale(1.02);
+    }
+
+    /* Section Headings */
+    section {
+      margin-bottom: 52px;
+      scroll-margin-top: 80px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      color: var(--text);
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Highlights */
+    .highlight-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .highlight-item {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 16px;
+      align-items: baseline;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .mono-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .highlight-text {
+      font-size: 14.5px;
+      color: var(--text-secondary);
+    }
+
+    .highlight-text strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* Publications */
+    .pub-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .pub-card {
+      padding: 18px 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .pub-card:hover {
+      border-color: var(--accent-border);
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+    }
+
+    .pub-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .venue-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+    }
+
+    .paper-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .pub-title {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .pub-authors {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .me {
+      color: var(--text);
+      font-weight: 700;
+      text-decoration: underline;
+      text-decoration-color: var(--accent);
+      text-underline-offset: 3px;
+    }
+
+    .pub-summary {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border);
+      font-size: 13.8px;
+      color: var(--text-secondary);
+    }
+
+    .pub-badge-note {
+      margin-top: 6px;
+      font-size: 12.8px;
+      font-weight: 600;
+      color: #b45309;
+    }
+
+    html.dark .pub-badge-note {
+      color: #fbbf24;
+    }
+
+    /* Experience & Education */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .timeline-item {
+      padding-left: 16px;
+      border-left: 2px solid var(--border);
+      transition: border-color 0.15s ease;
+    }
+
+    .timeline-item:hover {
+      border-left-color: var(--accent);
+    }
+
+    .item-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .item-title {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .item-period {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .item-sub {
+      font-size: 13.8px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .item-desc {
+      font-size: 14.3px;
+      color: var(--text-secondary);
+    }
+
+    /* Awards & Skills */
+    .award-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .award-row {
+      display: grid;
+      grid-template-columns: 115px 1fr;
+      gap: 16px;
+      align-items: baseline;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .award-row:last-child {
+      border-bottom: none;
+    }
+
+    .award-name {
+      font-weight: 600;
+      font-size: 14.5px;
+      color: var(--text);
+    }
+
+    .award-org {
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+
+    .skills-box {
+      display: grid;
+      grid-template-columns: 175px 1fr;
+      gap: 12px 20px;
+      padding: 20px;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 14.3px;
+    }
+
+    .skill-key {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .skill-val {
+      color: var(--text-secondary);
+    }
+
+    /* Footer & Lightbox */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 380px;
+      max-height: 85vh;
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    @media (max-width: 700px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .photo-card {
+        width: 160px;
+        height: 200px;
+        order: -1;
+      }
+      .highlight-item,
+      .award-row,
+      .skills-box {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+      .nav-links {
+        gap: 14px;
+        font-size: 13px;
+      }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="#about" class="nav-active">about</a>
-      <a href="#publications">publications</a>
-      <a href="#experience">experience</a>
-      <a href="#awards">awards</a>
-      <span id="themeToggle" class="theme-toggle" role="button" tabindex="0" aria-label="Toggle dark mode" title="Toggle dark mode"></span>
-    </nav>
-  </header>
-  <div id="progressBar"></div>
 
-  <div class="container">
-    <section id="about" class="profile">
-      <img src="photo.jpg" alt="Yewon Cho" class="zoomable">
-      <div>
-        <h1>Yewon Cho</h1>
-        <p class="subtitle">M.S. Student at Korea University</p>
-        <div class="socials">
-          <a href="mailto:yewon330@korea.ac.kr" aria-label="Email" title="Copy email" id="emailLink">
-            ✉<span class="copied-tip" id="copiedTip">Copied!</span>
+  <header class="navbar">
+    <div class="nav-inner">
+      <a href="#about" class="nav-brand">Yewon Cho</a>
+      <nav class="nav-links">
+        <a href="#highlights">Highlights</a>
+        <a href="#publications">Publications</a>
+        <a href="#experience">Experience</a>
+        <a href="#awards">Awards</a>
+        <button id="themeToggle" class="theme-btn" type="button" aria-label="Toggle color theme" title="Toggle theme"></button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero -->
+    <section id="about" class="hero">
+      <div class="hero-bio">
+        <h1 class="hero-name">Yewon Cho</h1>
+        <div class="hero-role">M.S. Student in Computer Science · Korea University (DMIS Lab)</div>
+        <p>
+          I am a Master's student in Computer Science at <strong>Korea University</strong>, advised by Prof. <a href="https://dmis.korea.ac.kr/jaewoo-kang-p-i" target="_blank" rel="noopener">Jaewoo Kang</a>. Prior to my graduate studies, I earned dual bachelor's degrees in Mathematics and Artificial Intelligence at Korea University.
+        </p>
+        <p>
+          My research centers on <strong>LLM Reasoning</strong>, <strong>Latent-Space &amp; Sequence Architectures</strong>, <strong>Reinforcement Learning for LLMs</strong>, and <strong>Test-Time Compute Optimization</strong>. Alongside foundational reasoning research, I have led large-scale Korean LLM post-training and RAG systems, as well as sim-to-real reinforcement learning for robotics.
+        </p>
+        <div class="action-row">
+          <button type="button" id="copyEmailBtn" class="pill-btn primary">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <span id="emailBtnText">yewon330@korea.ac.kr</span>
+          </button>
+          <a href="https://scholar.google.com/citations?user=uS_J4-8AAAAJ&hl=en" target="_blank" rel="noopener" class="pill-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/></svg>
+            Google Scholar
           </a>
-          <a href="https://scholar.google.com/citations?user=uS_J4-8AAAAJ&hl=en" aria-label="Google Scholar" title="Google Scholar" target="_blank" rel="noopener">
-            <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/>
-            </svg>
+          <a href="cv.pdf" target="_blank" rel="noopener" class="pill-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            CV (PDF)
           </a>
-          <a href="cv.pdf" aria-label="CV" title="CV" target="_blank" rel="noopener">CV</a>
+        </div>
+      </div>
+
+      <div class="photo-card">
+        <img src="photo.jpg" alt="Yewon Cho" id="profilePhoto">
+      </div>
+    </section>
+
+    <!-- Highlights -->
+    <section id="highlights">
+      <div class="section-header">
+        <h2 class="section-title">Highlights</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="highlight-list">
+        <div class="highlight-item">
+          <span class="mono-date">Sep 2026</span>
+          <div class="highlight-text">Won the <strong>ATEC2026 Online Qualifier</strong> (USD 1,756 prize) and competed as a <strong>Hong Kong On-Site Finalist</strong> in sim-to-real robotics.</div>
+        </div>
+        <div class="highlight-item">
+          <span class="mono-date">Aug 2026</span>
+          <div class="highlight-text">First-author paper <strong>MidThink</strong> (<em>Adaptive Latent Block Insertion via Online Reward Optimization</em>) accepted to <strong>EMNLP 2026 Main Conference</strong>.</div>
+        </div>
+        <div class="highlight-item">
+          <span class="mono-date">Nov 2025</span>
+          <div class="highlight-text">Presented our work on principal knowledge-grounded reasoning step evaluation at <strong>EMNLP 2025 Findings</strong>.</div>
+        </div>
+        <div class="highlight-item">
+          <span class="mono-date">Jul 2025</span>
+          <div class="highlight-text">Won <strong>1st Place</strong> in the <strong>BioASQ 13b Challenge (Task B)</strong> for biomedical question answering.</div>
         </div>
       </div>
     </section>
 
-    <article class="content-update">
-      <div class="bio">
-        <p>Hi! I am an M.S. student at the <a href="https://dmis.korea.ac.kr/" target="_blank" rel="noopener">Data Mining &amp; Information Systems Lab</a> at Korea University, advised by Prof. <a href="https://dmis.korea.ac.kr/jaewoo-kang-p-i" target="_blank" rel="noopener">Jaewoo Kang</a>. Previously, I earned dual bachelor's degrees in Mathematics and Artificial Intelligence at Korea University.</p>
-        <p>My research focuses on <strong>LLM Reasoning</strong>, <strong>Latent-Space &amp; Sequence Architectures</strong>, <strong>Reinforcement Learning for LLMs</strong>, and <strong>Test-Time Compute Optimization</strong>. Beyond foundational reasoning methods, I have extensive experience building Korean LLM post-training and large-scale RAG pipelines, as well as deploying sim-to-real reinforcement learning policies for robotics.</p>
+    <!-- Publications -->
+    <section id="publications">
+      <div class="section-header">
+        <h2 class="section-title">Publications</h2>
+        <div class="section-line"></div>
       </div>
+      <div class="pub-list">
+        <article class="pub-card">
+          <div class="pub-top">
+            <span class="venue-tag">EMNLP 2026 Main</span>
+            <a href="https://aclanthology.org/2026.emnlp-main.1833/" target="_blank" rel="noopener" class="paper-link">[Paper &nearr;]</a>
+          </div>
+          <h3 class="pub-title">Adaptive Latent Block Insertion via Online Reward Optimization</h3>
+          <p class="pub-authors"><span class="me">Yewon Cho</span>, Hyeongsoon Hwang, Yein Park, Hyeon Hwang, Jaewoo Kang</p>
+          <p class="pub-summary">Proposed <strong>MidThink</strong>, an uncertainty-triggered test-time latent optimization framework trained via online RL; improved AIME2024 Best@8 by up to 20%p across four LLMs and five benchmarks without full retraining.</p>
+        </article>
 
-      <section class="block" id="news">
-        <h2>News</h2>
-        <div class="rows">
-          <div class="news">
-            <time>Aug, 2026</time>
-            <p>🎉 Our paper "<b>Adaptive Latent Block Insertion via Online Reward Optimization</b>" (<b>MidThink</b>) has been accepted to <b>EMNLP 2026 Main Conference</b>!</p>
+        <article class="pub-card">
+          <div class="pub-top">
+            <span class="venue-tag">EMNLP 2025 Findings</span>
+            <a href="https://aclanthology.org/2025.findings-emnlp.1085/" target="_blank" rel="noopener" class="paper-link">[Paper &nearr;]</a>
           </div>
-          <div class="news">
-            <time>Sep, 2026</time>
-            <p>🤖 Won the <b>ATEC2026 Online Qualifier</b> (USD 1,756 prize) and competed as a <b>Hong Kong On-Site Finalist</b> in real-world robotics.</p>
+          <h3 class="pub-title">Assessing LLM Reasoning Steps via Principal Knowledge Grounding</h3>
+          <p class="pub-authors">Hyeon Hwang, <span class="me">Yewon Cho</span>, Chanwoong Yoon, Yein Park, Minju Song, Kyungjae Lee, Gangwoo Kim, Jaewoo Kang</p>
+        </article>
+
+        <article class="pub-card">
+          <div class="pub-top">
+            <span class="venue-tag">CLEF 2025 Working Notes</span>
+            <a href="https://ceur-ws.org/Vol-4038/paper_25.pdf" target="_blank" rel="noopener" class="paper-link">[Paper &nearr;]</a>
           </div>
-          <div class="news">
-            <time>Nov, 2025</time>
-            <p>🏆 Won <b>1st Place</b> in the <b>BioASQ 13b Challenge (Task B)</b> and published findings in <b>EMNLP 2025 Findings</b>.</p>
+          <h3 class="pub-title">Prompting Matters: Snippet-Aware Strategies for Biomedical QA with LLMs in BioASQ 13b</h3>
+          <p class="pub-authors">Hajung Kim*, Hoonick Lee*, <span class="me">Yewon Cho</span>*, Jungwoo Park*, Jueon Park*, Soyon Park*, Yan Ting Chok*, Seungheun Baek*, Donghyeon Lee*, Jaewoo Kang</p>
+          <p class="pub-badge-note">1st Place, BioASQ 13b Challenge (Task B) · * Equal contribution</p>
+        </article>
+
+        <article class="pub-card">
+          <div class="pub-top">
+            <span class="venue-tag">Proceedings of KCC 2025</span>
+            <a href="https://drive.google.com/file/d/1m2k_Q-JZugqDKZ2cNohOTu2v4pK9xPTf/view?usp=drive_link" target="_blank" rel="noopener" class="paper-link">[Paper &nearr;]</a>
+          </div>
+          <h3 class="pub-title">Exploring Model Personalities: Utilizing Self-Awareness to Analyze Behavioral Characteristics of Large Language Models</h3>
+          <p class="pub-authors"><span class="me">Yewon Cho</span>, Jongmyung Jung, Hyeongsoon Hwang, Yein Park, Chanwoong Yoon, Jaewoo Kang</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Research Experience -->
+    <section id="experience">
+      <div class="section-header">
+        <h2 class="section-title">Research Experience</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="item-head">
+            <span class="item-title">Personalized Cultural Heritage Storytelling AI</span>
+            <span class="item-period">Feb 2025 – Dec 2026</span>
+          </div>
+          <div class="item-sub">Researcher; LLM Workstream Lead since Jan 2026 · ETRI-funded R&amp;D Project</div>
+          <p class="item-desc">Built a Korean RAG pipeline over 75,341 documents and synthesized 74K Korean multi-turn dialogues for Gemma fine-tuning, leading end-to-end conversational LLM development and expert-in-the-loop evaluation.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="item-head">
+            <span class="item-title">AI-based Fake News Detection System</span>
+            <span class="item-period">May 2026 – Oct 2026</span>
+          </div>
+          <div class="item-sub">Team Lead · KETI gPBL Program</div>
+          <p class="item-desc">Built a two-stage claim verification pipeline combining Elasticsearch–SVM retrieval with RAG/LLM evidence reasoning, optimizing accuracy, latency, and inference cost (awarded KRW 2.5M gPBL grant).</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="item-head">
+            <span class="item-title">ATEC2026 Real-World Extreme Challenge</span>
+            <span class="item-period">Jun 2026 – Sep 2026</span>
+          </div>
+          <div class="item-sub">Team Lead · ATEC2026</div>
+          <p class="item-desc">Led RL and imitation learning policy training for locomotion and manipulation, earning a USD 1,756 online prize and deploying sim-to-real policies on physical robots at the Hong Kong finals.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="item-head">
+            <span class="item-title">3D Dance Motion Generation Improvement</span>
+            <span class="item-period">Dec 2023 – Feb 2024</span>
+          </div>
+          <div class="item-sub">Research Intern · Korea Institute of Science and Technology (KIST)</div>
+          <p class="item-desc">Revised Bailando's Actor–Critic reward to preserve valid seated motions after analyzing its VQ-VAE and Motion GPT pipeline.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education">
+      <div class="section-header">
+        <h2 class="section-title">Education</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="item-head">
+            <span class="item-title">Korea University, Seoul, South Korea</span>
+            <span class="item-period">Mar 2025 – Aug 2027 (Expected)</span>
+          </div>
+          <div class="item-sub">M.S. in Computer Science (Advisor: Prof. Jaewoo Kang)</div>
+          <p class="item-desc">GPA: 4.44 / 4.5</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="item-head">
+            <span class="item-title">Korea University, Seoul, South Korea</span>
+            <span class="item-period">Mar 2020 – Feb 2025</span>
+          </div>
+          <div class="item-sub">B.S. in Mathematics &amp; B.Eng. in Interdisciplinary Major in Artificial Intelligence</div>
+          <p class="item-desc">GPA: 3.78 / 4.5</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Honors & Awards -->
+    <section id="awards">
+      <div class="section-header">
+        <h2 class="section-title">Honors &amp; Awards</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="award-grid">
+        <div class="award-row">
+          <span class="mono-date">2025</span>
+          <div>
+            <div class="award-name">1st Place, BioASQ 13b Challenge (Task B)</div>
+            <div class="award-org">Biomedical Question Answering Track</div>
           </div>
         </div>
-      </section>
-
-      <section class="block" id="education">
-        <h2>Education</h2>
-        <div class="rows">
-          <div class="edu">
-            <div>
-              <b>M.S.</b> · Computer Science
-              <a href="https://www.korea.edu/" target="_blank" rel="noopener">Korea University, Seoul, South Korea</a>
-              <small>Advisor: Prof. Jaewoo Kang · GPA: 4.44 / 4.5</small>
-            </div>
-            <time>2025 Mar - 2027 Aug (Expected)</time>
-          </div>
-          <div class="edu">
-            <div>
-              <b>B.S.</b> · Mathematics &amp; <b>B.Eng.</b> · Artificial Intelligence (Interdisciplinary Major)
-              <a href="https://www.korea.edu/" target="_blank" rel="noopener">Korea University, Seoul, South Korea</a>
-              <small>GPA: 3.78 / 4.5</small>
-            </div>
-            <time>2020 Mar - 2025 Feb</time>
+        <div class="award-row">
+          <span class="mono-date">2026</span>
+          <div>
+            <div class="award-name">ATEC2026 Online Qualifier Prize &amp; Hong Kong On-Site Finalist</div>
+            <div class="award-org">USD 1,756 Prize &amp; International Finalist</div>
           </div>
         </div>
-      </section>
-
-      <section class="block" id="publications">
-        <h2>Publications</h2>
-        <ol class="pubs">
-          <li>
-            <span class="venue">EMNLP 2026 Main</span>
-            <h3><a href="https://aclanthology.org/2026.emnlp-main.1833/" target="_blank" rel="noopener">Adaptive Latent Block Insertion via Online Reward Optimization</a></h3>
-            <p class="authors"><span class="mine">Yewon Cho</span>, Hyeongsoon Hwang, Yein Park, Hyeon Hwang, Jaewoo Kang</p>
-            <p class="tldr">Proposed <b>MidThink</b>, an uncertainty-triggered test-time latent optimization framework trained via online RL; boosted AIME2024 Best@8 by up to 20%p across four LLMs and five benchmarks without full retraining.</p>
-          </li>
-          <li>
-            <span class="venue">EMNLP 2025 Findings</span>
-            <h3><a href="https://aclanthology.org/2025.findings-emnlp.1085/" target="_blank" rel="noopener">Assessing LLM Reasoning Steps via Principal Knowledge Grounding</a></h3>
-            <p class="authors">Hyeon Hwang, <span class="mine">Yewon Cho</span>, Chanwoong Yoon, Yein Park, Minju Song, Kyungjae Lee, Gangwoo Kim, Jaewoo Kang</p>
-          </li>
-          <li>
-            <span class="venue">CLEF 2025 Working Notes</span>
-            <h3><a href="https://ceur-ws.org/Vol-4038/paper_25.pdf" target="_blank" rel="noopener">Prompting Matters: Snippet-Aware Strategies for Biomedical QA with LLMs in BioASQ 13b</a></h3>
-            <p class="authors">Hajung Kim*, Hoonick Lee*, <span class="mine">Yewon Cho</span>*, Jungwoo Park*, Jueon Park*, Soyon Park*, Yan Ting Chok*, Seungheun Baek*, Donghyeon Lee*, Jaewoo Kang</p>
-            <p class="note" style="color:#8698a4">* Equal contribution</p>
-            <p class="note">🏆 1st Place in the BioASQ 13b Challenge (Task B)</p>
-          </li>
-          <li>
-            <span class="venue">Proceedings of KCC 2025</span>
-            <h3><a href="https://drive.google.com/file/d/1m2k_Q-JZugqDKZ2cNohOTu2v4pK9xPTf/view?usp=drive_link" target="_blank" rel="noopener">Exploring Model Personalities: Utilizing Self-Awareness to Analyze Behavioral Characteristics of Large Language Models</a></h3>
-            <p class="authors"><span class="mine">Yewon Cho</span>, Jongmyung Jung, Hyeongsoon Hwang, Yein Park, Chanwoong Yoon, Jaewoo Kang</p>
-          </li>
-        </ol>
-      </section>
-
-      <section class="block" id="experience">
-        <h2>Research Experience</h2>
-        <div class="rows">
-          <div class="edu">
-            <div>
-              <b>Personalized Cultural Heritage Storytelling AI</b> · ETRI-funded R&amp;D Project
-              <small>Researcher; LLM Workstream Lead since Jan 2026 — Built a Korean RAG pipeline over 75,341 documents and synthesized 74K Korean multi-turn dialogues for Gemma fine-tuning, leading end-to-end conversational LLM development and expert-in-the-loop evaluation.</small>
-            </div>
-            <time>2025 Feb - 2026 Dec</time>
-          </div>
-          <div class="edu">
-            <div>
-              <b>AI-based Fake News Detection System</b> · KETI gPBL Program
-              <small>Team Lead — Built a two-stage claim verification pipeline combining Elasticsearch–SVM retrieval with RAG/LLM evidence reasoning, optimizing accuracy, latency, and inference cost (awarded KRW 2.5M gPBL grant).</small>
-            </div>
-            <time>2026 May - 2026 Oct</time>
-          </div>
-          <div class="edu">
-            <div>
-              <b>ATEC2026 Real-World Extreme Challenge</b> · ATEC2026
-              <small>Team Lead — Led RL and imitation learning policy training for locomotion and manipulation, earning a USD 1,756 online prize and deploying sim-to-real policies on physical robots at the Hong Kong finals.</small>
-            </div>
-            <time>2026 Jun - 2026 Sep</time>
-          </div>
-          <div class="edu">
-            <div>
-              <b>3D Dance Motion Generation Improvement</b> · Korea Institute of Science and Technology (KIST)
-              <small>Research Intern — Revised Bailando's Actor–Critic reward to preserve valid seated motions after analyzing its VQ-VAE and Motion GPT pipeline.</small>
-            </div>
-            <time>2023 Dec - 2024 Feb</time>
+        <div class="award-row">
+          <span class="mono-date">2025 – Present</span>
+          <div>
+            <div class="award-name">National Science &amp; Engineering Graduate Scholarship (MSIT)</div>
+            <div class="award-org">KRW 2,500,000 per semester</div>
           </div>
         </div>
-      </section>
-
-      <section class="block" id="awards">
-        <h2>Honors &amp; Awards</h2>
-        <div>
-          <div class="award">
-            <span>2025</span>
-            <p><b>1st Place, BioASQ 13b Challenge (Task B)</b><small>Achieved first place in the biomedical question answering task at BioASQ 13b.</small></p>
-          </div>
-          <div class="award">
-            <span>2026</span>
-            <p><b>ATEC2026 Online Qualifier Prize &amp; Hong Kong On-Site Finalist</b><small>Advanced to the Hong Kong on-site round and received a USD 1,756 prize.</small></p>
-          </div>
-          <div class="award">
-            <span>2025 - Present</span>
-            <p><b>National Science &amp; Engineering Graduate Scholarship (MSIT)</b><small>KRW 2,500,000 per semester.</small></p>
-          </div>
-          <div class="award">
-            <span>2026</span>
-            <p><b>KETI gPBL Fellowship (Korea Electronics Technology Institute)</b><small>KRW 2,500,000 research fellowship.</small></p>
-          </div>
-          <div class="award">
-            <span>2020 - 2025</span>
-            <p><b>National Scholarship for Science and Engineering Students</b><small>Seven-semester full-tuition merit scholarship.</small></p>
+        <div class="award-row">
+          <span class="mono-date">2026</span>
+          <div>
+            <div class="award-name">KETI gPBL Fellowship</div>
+            <div class="award-org">Korea Electronics Technology Institute · KRW 2,500,000</div>
           </div>
         </div>
-      </section>
-
-      <section class="block" id="skills">
-        <h2>Technical Skills &amp; Languages</h2>
-        <div>
-          <div class="skill-row">
-            <div class="skill-label">Programming &amp; Infra</div>
-            <div>Python, FastAPI, Docker, Linux, Git</div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-label">ML / LLM</div>
-            <div>PyTorch (Multi-GPU Training), Hugging Face Transformers, vLLM, Isaac Sim, scikit-learn</div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-label">Retrieval &amp; Methods</div>
-            <div>FAISS, Elasticsearch, Korean LLM Fine-Tuning, RL for Reasoning, RAG, Synthetic Data, Evaluation</div>
-          </div>
-          <div class="skill-row">
-            <div class="skill-label">Languages</div>
-            <div>Korean (Native), English (OPIc IH, Aug 2026)</div>
+        <div class="award-row">
+          <span class="mono-date">2020 – 2025</span>
+          <div>
+            <div class="award-name">National Scholarship for Science and Engineering Students</div>
+            <div class="award-org">Seven-semester full-tuition merit scholarship</div>
           </div>
         </div>
-      </section>
-    </article>
-  </div>
+      </div>
+    </section>
+
+    <!-- Technical Skills & Languages -->
+    <section id="skills">
+      <div class="section-header">
+        <h2 class="section-title">Technical Skills &amp; Languages</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="skills-box">
+        <div class="skill-key">Programming &amp; Infra</div>
+        <div class="skill-val">Python, FastAPI, Docker, Linux, Git</div>
+
+        <div class="skill-key">ML / LLM Frameworks</div>
+        <div class="skill-val">PyTorch (Multi-GPU Training), Hugging Face Transformers, vLLM, Isaac Sim, scikit-learn</div>
+
+        <div class="skill-key">Retrieval &amp; Methods</div>
+        <div class="skill-val">FAISS, Elasticsearch, LLM Reasoning, Test-Time Latent Optimization, RL for Reasoning, Korean LLM Fine-Tuning, RAG, Synthetic Data, Evaluation</div>
+
+        <div class="skill-key">Languages</div>
+        <div class="skill-val">Korean (Native), English (OPIc IH, Aug 2026)</div>
+      </div>
+    </section>
+  </main>
 
   <footer>
-    © Copyright 2026 Yewon Cho. Hosted by GitHub Pages. · Last updated <span id="lastUpdated"></span>
+    &copy; 2026 Yewon Cho · Seoul, South Korea
   </footer>
 
-  <div class="lightbox" id="lightbox"><img id="lightboxImg" src="" alt=""></div>
-  <button id="toTop" aria-label="Back to top" title="Back to top">↑</button>
+  <div class="lightbox" id="photoLightbox">
+    <img src="photo.jpg" alt="Yewon Cho">
+  </div>
 
   <script>
-    document.getElementById('emailLink').addEventListener('click', function(e){
-      e.preventDefault();
-      var email = 'yewon330@korea.ac.kr';
-      var tip = document.getElementById('copiedTip');
-      var extras = ['🪄', '🙌', '🥳'];
-      function showTip(){
-        var pick = extras[Math.floor(Math.random() * extras.length)];
-        tip.innerHTML = 'Copied! ' + pick;
-        tip.classList.add('show');
-        setTimeout(function(){ tip.classList.remove('show'); }, 1500);
-      }
+    // Email copy button
+    var copyBtn = document.getElementById('copyEmailBtn');
+    var emailText = document.getElementById('emailBtnText');
+    copyBtn.addEventListener('click', function(){
+      var address = 'yewon330@korea.ac.kr';
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(email).then(showTip);
-      } else {
-        var ta = document.createElement('textarea');
-        ta.value = email; document.body.appendChild(ta); ta.select();
-        document.execCommand('copy'); document.body.removeChild(ta);
-        showTip();
+        navigator.clipboard.writeText(address);
       }
+      emailText.textContent = 'Copied to clipboard';
+      setTimeout(function(){
+        emailText.textContent = address;
+      }, 1600);
     });
 
-    var progressBar = document.getElementById('progressBar');
-    var themeToggle = document.getElementById('themeToggle');
-    var sunSvg = '<svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
-    function syncToggleIcon(){
+    // Dark / Light theme toggle
+    var themeBtn = document.getElementById('themeToggle');
+    var moonIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
+    var sunIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>';
+
+    function renderThemeIcon(){
       var isDark = document.documentElement.classList.contains('dark');
-      themeToggle.innerHTML = isDark ? '🌙' : sunSvg;
+      themeBtn.innerHTML = isDark ? sunIcon : moonIcon;
     }
-    syncToggleIcon();
-    themeToggle.addEventListener('click', function(){
+    renderThemeIcon();
+
+    themeBtn.addEventListener('click', function(){
       document.documentElement.classList.toggle('dark');
-      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-      syncToggleIcon();
+      var isDark = document.documentElement.classList.contains('dark');
+      localStorage.setItem('yewon-theme', isDark ? 'dark' : 'light');
+      renderThemeIcon();
     });
 
-    var headerEl = document.querySelector('header');
-    var toTopBtn = document.getElementById('toTop');
-    var sections = ['about', 'publications', 'experience', 'awards'].map(function(id){ return document.getElementById(id); });
-    var navLinks = {
-      about: document.querySelector('nav a[href="#about"]'),
-      publications: document.querySelector('nav a[href="#publications"]'),
-      experience: document.querySelector('nav a[href="#experience"]'),
-      awards: document.querySelector('nav a[href="#awards"]')
-    };
-
-    function updateHeader(){
-      var scrolled = document.documentElement.scrollTop > 10;
-      headerEl.classList.toggle('scrolled', scrolled);
-      toTopBtn.classList.toggle('show', document.documentElement.scrollTop > 500);
-      var activeId = 'about';
-      for (var i = 0; i < sections.length; i++){
-        if (sections[i].getBoundingClientRect().top <= 110) activeId = sections[i].id;
-      }
-      Object.keys(navLinks).forEach(function(k){
-        navLinks[k].classList.toggle('nav-active', k === activeId);
-      });
-    }
-    window.addEventListener('scroll', updateHeader, {passive:true});
-    updateHeader();
-
-    toTopBtn.addEventListener('click', function(){
-      window.scrollTo({top:0, behavior:'smooth'});
-    });
-
-    document.querySelectorAll('.block').forEach(function(el){ el.classList.add('fade-init'); });
-    var lu = new Date(document.lastModified);
-    document.getElementById('lastUpdated').textContent = lu.toLocaleDateString('en-US', {year:'numeric', month:'short', day:'numeric'});
-
-    var fadeObserver = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if (entry.isIntersecting){
-          entry.target.classList.add('fade-in');
-          fadeObserver.unobserve(entry.target);
-        }
-      });
-    }, {threshold:0.12});
-    document.querySelectorAll('.block').forEach(function(el){ fadeObserver.observe(el); });
-
-    function updateProgress(){
-      var h = document.documentElement;
-      var scrollable = h.scrollHeight - h.clientHeight;
-      var pct = scrollable > 0 ? (h.scrollTop / scrollable) * 100 : 0;
-      progressBar.style.width = pct + '%';
-    }
-    window.addEventListener('scroll', updateProgress, {passive:true});
-    updateProgress();
-
-    var lightbox = document.getElementById('lightbox');
-    var lightboxImg = document.getElementById('lightboxImg');
-    var zoomScale = 1, pinchStartDist = 0, pinchStartScale = 1;
-    function resetZoom(){ zoomScale = 1; lightboxImg.style.transform = ''; }
-    function touchDist(touches){
-      var dx = touches[0].clientX - touches[1].clientX;
-      var dy = touches[0].clientY - touches[1].clientY;
-      return Math.hypot(dx, dy);
-    }
-    document.querySelectorAll('.zoomable').forEach(function(img){
-      img.addEventListener('click', function(){
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt;
-        lightbox.classList.add('lightbox-photo', 'show');
-        resetZoom();
-      });
+    // Photo lightbox
+    var photo = document.getElementById('profilePhoto');
+    var lightbox = document.getElementById('photoLightbox');
+    photo.addEventListener('click', function(){
+      lightbox.classList.add('open');
     });
     lightbox.addEventListener('click', function(){
-      lightbox.classList.remove('show');
-      lightboxImg.src = '';
-      resetZoom();
-    });
-    lightboxImg.addEventListener('click', function(e){ e.stopPropagation(); });
-    lightboxImg.addEventListener('touchstart', function(e){
-      if (e.touches.length === 2){
-        pinchStartDist = touchDist(e.touches);
-        pinchStartScale = zoomScale;
-      }
-    }, {passive:true});
-    lightboxImg.addEventListener('touchmove', function(e){
-      if (e.touches.length === 2){
-        e.preventDefault();
-        var dist = touchDist(e.touches);
-        zoomScale = Math.min(4, Math.max(1, pinchStartScale * (dist / pinchStartDist)));
-        lightboxImg.style.transform = 'scale(' + zoomScale + ')';
-      }
-    }, {passive:false});
-    lightboxImg.addEventListener('touchend', function(e){
-      if (e.touches.length < 2 && zoomScale <= 1.02) resetZoom();
+      lightbox.classList.remove('open');
     });
   </script>
 </body>
